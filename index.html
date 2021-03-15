@@ -8,12 +8,41 @@
       #timeViewArea {
         font-size: 2rem;
       }
+      #dispAlerm {
+        display: none;
+      }
+      #dispAlerm:not(:checked) + table {
+        display: none;
+      }
     </style>
   </head>
   <body>
     <p id="timeViewArea"></p>
     <p id="diffViewArea"></p>
     <p><button id="reload">再読み込み</button></p>
+
+    <p>
+      <input type="checkbox" id="alermSwitch" /><label for="alermSwitch"
+        >アラームを使用する</label
+      >
+    </p>
+    <p>
+      PC以外の環境ではズレが発生するためアラーム機能の利用は非推奨です。<br />
+      スマホからアラームを利用する場合は読込ボタンを押さないと音が鳴りません。
+    </p>
+    <input type="checkbox" id="dispAlerm" />
+    <table>
+      <thead></thead>
+      <tbody id="alermTable"></tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2">
+            <button id="addColumn">追加</button>
+            <button id="load">読込</button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
     <script src="./script.js"></script>
   </body>
 </html>
