@@ -53,22 +53,28 @@ window.addEventListener("DOMContentLoaded", () => {
     const beforeTime = Date.now();
     fetch(api, {
       mode: "cors",
-    }).then(async (resp) => {
-      const afterTime = Date.now();
-      const data = await resp.json();
-      const serverTime = new Date(data.datetime).getTime();
+    })
+      .then(async (resp) => {
+        const afterTime = Date.now();
+        const data = await resp.json();
+        const serverTime = new Date(data.datetime).getTime();
 
-      responseDiff = (afterTime - beforeTime) / 2;
-      timeDiff = serverTime + responseDiff - afterTime;
-      diffViewArea.textContent = `この測定の誤差は±${
-        responseDiff / 1000
-      }秒です。`;
-      reloadBtn.removeAttribute("disabled");
+        responseDiff = (afterTime - beforeTime) / 2;
+        timeDiff = serverTime + responseDiff - afterTime;
+        diffViewArea.textContent = `この測定の誤差は±${
+          responseDiff / 1000
+        }秒です。`;
+        reloadBtn.removeAttribute("disabled");
 
-      if (alermSwitch.checked) {
-        registrationAlerm();
-      }
-    });
+        if (alermSwitch.checked) {
+          registrationAlerm();
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        diffViewArea.textContent = "時刻の取得に失敗しました";
+        reloadBtn.removeAttribute("disabled");
+      });
   };
 
   /**
